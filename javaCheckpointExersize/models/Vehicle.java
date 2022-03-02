@@ -10,6 +10,8 @@ public class Vehicle {
             throw new IllegalArgumentException("Some of the parameters are empty");
         } else {
             this.name = name;
+            this.color = color;
+            this.year = year;
         }
     }
 
@@ -29,9 +31,13 @@ public class Vehicle {
         this.color = color;
     }
 
-    public void prettyPrint(){
-        System.out.println("\n Car model: " + this.name);
-        System.out.println("\n Color: " + this.color);
-        System.out.println("\n Year : " + this.year);
+    public String toString(){
+        String temp = "";
+
+        temp += ("\n Car model: " + this.name);
+        temp += ("\n Color: " + this.color);
+        temp += ("\n Year : " + this.year);
+
+        return temp;
     }
 }
