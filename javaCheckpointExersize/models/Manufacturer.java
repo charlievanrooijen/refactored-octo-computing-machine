@@ -30,4 +30,17 @@ public class Manufacturer {
     public void addVehicle(Vehicle vehicle){
         this.vehiclesList.add(vehicle);
     }
+
+    public void removeVehicle(String name){
+        this.vehiclesList.stream()
+                .forEach(vehicle -> {
+                    if(vehicle.getName().equals(name)){
+                        this.vehiclesList.remove(vehicle);
+                    }
+                });
+    }
+
+    public Vehicle[] getVehicle() {
+        return null;
+    }
 }

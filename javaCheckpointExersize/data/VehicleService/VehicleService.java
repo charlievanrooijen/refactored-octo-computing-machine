@@ -35,38 +35,36 @@ public class VehicleService {
     public static ArrayList<Vehicle> searchByAutomaker(String searchTerm, VehicleRepository repo) {
         ArrayList<Vehicle> res = new ArrayList<Vehicle>();
 
-        repo.getManufacturers().stream()
-                .forEach(Manufacturer -> {
-                    if (Manufacturer.getName().toUpperCase().contains(searchTerm.toUpperCase()))
-                        Manufacturer.getVehicles().stream()
-                                .forEach(Vehicle -> {
-                                        res.add(Vehicle);
-                                });
-                });
+        for (Manufacturer manufacturer : repo.getManufacturers()) {
+            if (manufacturer.getName().toUpperCase().contains(searchTerm.toUpperCase())) {
+                for (Vehicle vehicle : manufacturer.getVehicles()) {
+                    res.add(vehicle);
+                }
+            }
+        }
 
         return res;
     }
 
     public static ArrayList<Vehicle> searchByModel(String searchTerm, VehicleRepository repo) {
         ArrayList<Vehicle> result = new ArrayList<Vehicle>();
-        repo.getManufacturers().stream()
-                .forEach(Manufacturer -> {
-                    Manufacturer.getVehicles().stream()
-                            .forEach(vehicle -> {
-                                if (vehicle.getName().toUpperCase().contains(searchTerm.toUpperCase())) {
-                                    result.add(vehicle);
-                                }
-                            });
-                });
+
+        for (Manufacturer manufacturer : repo.getManufacturers()) {
+            for (Vehicle vehicle : manufacturer.getVehicles()) {
+                if (vehicle.getName().toUpperCase().contains(searchTerm.toUpperCase())) {
+                    result.add(vehicle);
+                }
+            }
+        }
+
         return result;
     }
 
-    public void addVehicle(Vehicle vehicle, String manufacturerName, VehicleRepository repo) {
-        repo.getManufacturers().stream()
-                .forEach(manufacturer -> {
-                    if (manufacturer.getName().equals(manufacturerName)) {
-                        manufacturer.addVehicle(vehicle);
-                    }
-                });
+    public void addVehicle(Vehicle vehicleToAdd, String manufacturerName, VehicleRepository repo) {
+        for (Manufacturer manufacturer : repo.getManufacturers()) {
+            if (manufacturer.getName().toUpperCase().contains(manufacturerName.toUpperCase())) {
+                manufacturer.addVehicle(vehicleToAdd);
+            }
+        }
     }
 }
